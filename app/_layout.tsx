@@ -4,9 +4,10 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-
 import { useColorScheme } from '@/components/useColorScheme';
-
+import {store} from '../redux/Store'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../config/firebase'
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -46,13 +47,48 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  
+
+  onAuthStateChanged(auth, u=>{
+    
+    
+  })
 
   return (
+   
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+       
+       <Stack.Screen name="Login" options={{headerShown: false}}/>
+       <Stack.Screen name="SignIn" options={{presentation: 'modal', headerShown: false}}/>
+       <Stack.Screen name="SignUp" options={{presentation: 'modal', headerShown: false}}/>
+       <Stack.Screen name="HomePage" options={ {headerShown: false}}/>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen
+        name="AddTrip"
+        options={{
+          
+          headerShown:false,
+          
+        }}></Stack.Screen>
+        <Stack.Screen
+        name="TripExpances"
+        options={{
+          
+          headerShown:false,
+          
+        }}></Stack.Screen>
+        <Stack.Screen
+        name="AddExpance"
+        options={{
+          
+          headerShown:false,
+          
+        }}></Stack.Screen>
       </Stack>
     </ThemeProvider>
+    
+    
   );
 }
